@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = GitHubViewModel()
-    @State private var selectedTab = 0
+
     @State private var showingWebView = false
     @State private var selectedRepository: GitHubRepository?
     @State private var showingFollowers = false
@@ -51,8 +51,8 @@ struct ProfileView: View {
                         // Repository Highlights (instead of story highlights)
                         repositoryHighlights
                         
-                        // Tab Selection
-                        tabSelection
+                        // Repositories Section Header
+                        repositoriesHeader
                         
                         // Repository Grid (instead of posts)
                         repositoryGrid
@@ -345,32 +345,26 @@ struct ProfileView: View {
     }
     
   
-    // MARK: - Tab Selection
-    private var tabSelection: some View {
-        HStack {
-            Button(action: { selectedTab = 0 }) {
+    // MARK: - Repositories Section Header
+    private var repositoriesHeader: some View {
+        VStack {
+            HStack {
                 Image(systemName: "folder")
                     .font(.title3)
-                    .foregroundColor(selectedTab == 0 ? .black : .gray)
+                    .foregroundColor(.black)
+                
+                Text("Repositories")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.black)
             }
-            .frame(maxWidth: .infinity)
+            .padding(.top, 16)
+            .padding(.bottom, 8)
             
-            Button(action: { selectedTab = 1 }) {
-                Image(systemName: "star")
-                    .font(.title3)
-                    .foregroundColor(selectedTab == 1 ? .black : .gray)
-            }
-            .frame(maxWidth: .infinity)
-        }
-        .padding(.top, 16)
-        .padding(.bottom, 5)
-        .overlay(
             Rectangle()
-                .fill(Color.black)
+                .fill(Color(.systemGray5))
                 .frame(height: 1)
-                .offset(x: selectedTab == 0 ? -UIScreen.main.bounds.width/2 : UIScreen.main.bounds.width/2, y: 20)
-                .animation(.easeInOut(duration: 0.2), value: selectedTab)
-        )
+        }
+        .frame(maxWidth: .infinity)
     }
     
     // MARK: - Repository Grid (instead of posts grid)
