@@ -15,10 +15,10 @@
 		9CA0B8F82E5B5E3D004DB0AD /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B8F72E5B5E3D004DB0AD /* ProfileView.swift */; };
 		9CA0B8FA2E5BC37B004DB0AD /* LanguageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B8F92E5BC37B004DB0AD /* LanguageHelper.swift */; };
 		9CA0B8FC2E5BC777004DB0AD /* FollowersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B8FB2E5BC777004DB0AD /* FollowersView.swift */; };
+		9CA0B8FE2E5BD9AF004DB0AD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B8FD2E5BD9AF004DB0AD /* HomeView.swift */; };
 		9CA0B9012E5B6C12004DB0AD /* GitHubUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B9002E5B6C12004DB0AD /* GitHubUser.swift */; };
 		9CA0B9032E5B6C45004DB0AD /* GitHubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B9022E5B6C45004DB0AD /* GitHubViewModel.swift */; };
 		9CA0B9052E5B7A12004DB0AD /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B9042E5B7A12004DB0AD /* WebView.swift */; };
-		9CA0B9072E5B7D45004DB0AD /* FollowersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B9062E5B7D45004DB0AD /* FollowersView.swift */; };
 		9CA0B9092E5B7F23004DB0AD /* FollowersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B9082E5B7F23004DB0AD /* FollowersViewModel.swift */; };
 		9CA0B90B2E5B8156004DB0AD /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B90A2E5B8156004DB0AD /* UserProfileView.swift */; };
 /* End PBXBuildFile section */
@@ -33,6 +33,7 @@
 		9CA0B8F72E5B5E3D004DB0AD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		9CA0B8F92E5BC37B004DB0AD /* LanguageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageHelper.swift; sourceTree = "<group>"; };
 		9CA0B8FB2E5BC777004DB0AD /* FollowersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersView.swift; sourceTree = "<group>"; };
+		9CA0B8FD2E5BD9AF004DB0AD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9CA0B9002E5B6C12004DB0AD /* GitHubUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUser.swift; sourceTree = "<group>"; };
 		9CA0B9022E5B6C45004DB0AD /* GitHubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubViewModel.swift; sourceTree = "<group>"; };
 		9CA0B9042E5B7A12004DB0AD /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 				9CA0B8C12E5B4DF1004DB0AD /* ContentView.swift */,
 				9CA0B8FB2E5BC777004DB0AD /* FollowersView.swift */,
 				9CA0B8F52E5B5B25004DB0AD /* BottomNavigation.swift */,
+				9CA0B8FD2E5BD9AF004DB0AD /* HomeView.swift */,
 				9CA0B8F72E5B5E3D004DB0AD /* ProfileView.swift */,
 				9CA0B9042E5B7A12004DB0AD /* WebView.swift */,
 				9CA0B9062E5B7D45004DB0AD /* FollowersView.swift */,
@@ -200,6 +202,7 @@
 				9CA0B9032E5B6C45004DB0AD /* GitHubViewModel.swift in Sources */,
 				9CA0B8FC2E5BC777004DB0AD /* FollowersView.swift in Sources */,
 				9CA0B9052E5B7A12004DB0AD /* WebView.swift in Sources */,
+				9CA0B8FE2E5BD9AF004DB0AD /* HomeView.swift in Sources */,
 				9CA0B9092E5B7F23004DB0AD /* FollowersViewModel.swift in Sources */,
 				9CA0B90B2E5B8156004DB0AD /* UserProfileView.swift in Sources */,
 			);
