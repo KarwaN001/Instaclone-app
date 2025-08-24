@@ -1,0 +1,71 @@
+//
+//  BottomNavigation.swift
+//  InstaClone
+//
+//  Created by karwan Syborg on 24/08/2025.
+//
+
+import SwiftUI
+
+struct BottomNavigation: View {
+    var body: some View {
+        TabView {
+            // Home Tab
+            VStack {
+                Text("Home Screen")
+                    .font(.title)
+                    .foregroundColor(.primary)
+            }
+            .tabItem {
+                Image(systemName: "house")
+            }
+            
+            // Search Tab
+            VStack {
+                Text("Search Screen")
+                    .font(.title)
+                    .foregroundColor(.primary)
+            }
+            .tabItem {
+                Image(systemName: "magnifyingglass")
+            }
+            
+            // Add Post Tab
+            VStack {
+                Text("Add Post Screen")
+                    .font(.title)
+                    .foregroundColor(.primary)
+            }
+            .tabItem {
+                Image(systemName: "plus.square")
+            }
+            
+            // Notifications Tab
+            VStack {
+                Text("Notifications Screen")
+                    .font(.title)
+                    .foregroundColor(.primary)
+            }
+            .tabItem {
+                Image(systemName: "heart")
+            }
+            
+            // Profile Tab
+            VStack {
+                Text("Profile Screen")
+                    .font(.title)
+                    .foregroundColor(.primary)
+            }
+            .tabItem {
+                Image(systemName: "person.circle")
+            }
+        }
+        .accentColor(.black)
+    }
+}
+
+struct BottomNavigation_Previews: PreviewProvider {
+    static var previews: some View {
+        BottomNavigation()
+    }
+} 

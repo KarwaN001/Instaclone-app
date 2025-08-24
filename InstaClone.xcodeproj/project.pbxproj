@@ -11,6 +11,7 @@
 		9CA0B8C22E5B4DF1004DB0AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B8C12E5B4DF1004DB0AD /* ContentView.swift */; };
 		9CA0B8C42E5B4DF4004DB0AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CA0B8C32E5B4DF4004DB0AD /* Assets.xcassets */; };
 		9CA0B8C72E5B4DF4004DB0AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CA0B8C62E5B4DF4004DB0AD /* Preview Assets.xcassets */; };
+		9CA0B8F62E5B5B25004DB0AD /* BottomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B8F52E5B5B25004DB0AD /* BottomNavigation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		9CA0B8C12E5B4DF1004DB0AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9CA0B8C32E5B4DF4004DB0AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CA0B8C62E5B4DF4004DB0AD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9CA0B8F52E5B5B25004DB0AD /* BottomNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				9CA0B8C12E5B4DF1004DB0AD /* ContentView.swift */,
+				9CA0B8F52E5B5B25004DB0AD /* BottomNavigation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			files = (
 				9CA0B8C22E5B4DF1004DB0AD /* ContentView.swift in Sources */,
 				9CA0B8C02E5B4DF1004DB0AD /* InstaCloneApp.swift in Sources */,
+				9CA0B8F62E5B5B25004DB0AD /* BottomNavigation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
