@@ -241,34 +241,113 @@ struct ProfileView: View {
     // MARK: - Repository Highlights (instead of story highlights)
     private var repositoryHighlights: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
+            HStack(spacing: 20) {
                 // Show top repositories as highlights
-                ForEach(Array(viewModel.repositories.prefix(5)), id: \.id) { repo in
-                    VStack {
+                ForEach(Array(viewModel.repositories.prefix(6)), id: \.id) { repo in
+                    VStack(spacing: 8) {
+                        // Modern circular highlight with language-based gradient
                         Circle()
-                            .fill(Color(.systemGray5))
-                            .frame(width: 64, height: 64)
+                            .fill(
+                                LinearGradient(
+                                    colors: gradientColorsForLanguage(repo.language ?? ""),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .frame(width: 68, height: 68)
                             .overlay(
-                                VStack {
-                                    Image(systemName: "folder")
-                                        .font(.title3)
-                                        .foregroundColor(.blue)
-                                    if let language = repo.language {
-                                        Text(String(language.prefix(3)))
-                                            .font(.system(size: 8))
-                                            .foregroundColor(.secondary)
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 3)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 2)
+                            )
+                            .overlay(
+                                // Dynamic icon based on language or repository type
+                                VStack(spacing: 2) {
+                                    Image(systemName: iconForLanguage(repo.language ?? ""))
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                    
+                                    if repo.stargazersCount > 0 {
+                                        HStack(spacing: 1) {
+                                            Image(systemName: "star.fill")
+                                                .font(.system(size: 6))
+                                                .foregroundColor(.white.opacity(0.9))
+                                            Text("\(formatCount(repo.stargazersCount))")
+                                                .font(.system(size: 6, weight: .bold))
+                                                .foregroundColor(.white.opacity(0.9))
+                                        }
                                     }
                                 }
                             )
-                        Text(String(repo.name.prefix(8)))
-                            .font(.caption)
+                            .scaleEffect(1.0)
+                        
+                        // Repository name
+                        Text(String(repo.name.prefix(10)))
+                            .font(.system(size: 11, weight: .medium))
                             .foregroundColor(.primary)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                    }
+                    .onTapGesture {
+                        // Add haptic feedback and open repository
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                        impactFeedback.impactOccurred()
+                        
+                        if let url = URL(string: repo.htmlUrl) {
+                            UIApplication.shared.open(url)
+                        }
                     }
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 16)
         }
         .padding(.top, 16)
+    }
+    
+    // Helper function for language-based gradients
+    private func gradientColorsForLanguage(_ language: String) -> [Color] {
+        switch language.lowercased() {
+        case "swift": return [.orange, .red]
+        case "javascript": return [.yellow, .orange]
+        case "python": return [.blue, .cyan]
+        case "java": return [.red, .orange]
+        case "typescript": return [.blue, .purple]
+        case "html": return [.orange, .pink]
+        case "css": return [.blue, .green]
+        case "dart": return [.blue, .teal]
+        case "kotlin": return [.purple, .pink]
+        case "go": return [.cyan, .blue]
+        case "rust": return [.orange, .brown]
+        case "c++", "cpp": return [.blue, .purple]
+        case "c": return [.gray, .blue]
+        case "php": return [.purple, .blue]
+        case "Blade": return [.red, .orange]
+        case "ruby": return [.red, .pink]
+        default: return [.gray, .secondary]
+        }
+    }
+    
+    // Helper function for language-based icons
+    private func iconForLanguage(_ language: String) -> String {
+        switch language.lowercased() {
+        case "swift": return "swift"
+        case "javascript": return "curlybraces"
+        case "python": return "terminal"
+        case "java": return "cup.and.saucer"
+        case "typescript": return "t.square"
+        case "html": return "globe"
+        case "css": return "paintbrush"
+        case "dart": return "target"
+        case "kotlin": return "k.square"
+        case "go": return "goforward"
+        case "rust": return "gear"
+        case "c++", "cpp": return "plus.forwardslash.minus"
+        case "c": return "c.square"
+        case "php": return "p.square"
+        case "Blade": return "crown"
+        case "ruby": return "diamond"
+        default: return "code"
+        }
     }
     
     // MARK: - Tab Selection
@@ -307,14 +386,20 @@ struct ProfileView: View {
                     // Header section
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 10) {
-                            // Language-colored folder icon
+                            // Language-specific icon with gradient background
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(colorForLanguage(repo.language ?? "").opacity(0.15))
+                                .fill(
+                                    LinearGradient(
+                                        colors: gradientColorsForLanguage(repo.language ?? "").map { $0.opacity(0.2) },
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
                                 .frame(width: 36, height: 36)
                                 .overlay(
-                                    Image(systemName: "folder.fill")
+                                    Image(systemName: iconForLanguage(repo.language ?? ""))
                                         .font(.system(size: 16, weight: .medium))
-                                        .foregroundColor(colorForLanguage(repo.language ?? ""))
+                                        .foregroundColor(gradientColorsForLanguage(repo.language ?? "").first ?? .gray)
                                 )
                             
                             VStack(alignment: .leading, spacing: 1) {
@@ -357,10 +442,10 @@ struct ProfileView: View {
                         HStack {
                             // Language indicator
                             if let language = repo.language {
-                                HStack(spacing: 5) {
-                                    Circle()
-                                        .fill(colorForLanguage(language))
-                                        .frame(width: 8, height: 8)
+                                                            HStack(spacing: 5) {
+                                Circle()
+                                    .fill(gradientColorsForLanguage(language).first ?? .gray)
+                                    .frame(width: 8, height: 8)
                                     Text(language)
                                         .font(.system(size: 10, weight: .medium))
                                         .foregroundColor(.primary)
@@ -438,15 +523,7 @@ struct ProfileView: View {
         return "\(count)"
     }
     
-    private func colorForLanguage(_ language: String) -> Color {
-        switch language.lowercased() {
-        case "swift": return .orange
-        case "javascript": return .yellow
-        case "python": return .blue
-        case "java": return .red
-        default: return .gray
-        }
-    }
+
 }
 
 struct ProfileView_Previews: PreviewProvider {
