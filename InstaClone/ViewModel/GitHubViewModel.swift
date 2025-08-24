@@ -15,17 +15,18 @@ class GitHubViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let username = "KarwaN001"
+    private let defaultUsername = "KarwaN001"
     
-    func fetchUserData() {
+    func fetchUserData(for username: String? = nil) {
+        let targetUsername = username ?? defaultUsername
         isLoading = true
         errorMessage = nil
         
         Task {
             do {
                 // Fetch user profile
-                async let userTask = fetchUser()
-                async let reposTask = fetchRepositories()
+                async let userTask = fetchUser(username: targetUsername)
+                async let reposTask = fetchRepositories(username: targetUsername)
                 
                 let (fetchedUser, fetchedRepos) = try await (userTask, reposTask)
                 
@@ -39,13 +40,13 @@ class GitHubViewModel: ObservableObject {
         }
     }
     
-    private func fetchUser() async throws -> GitHubUser {
+    private func fetchUser(username: String) async throws -> GitHubUser {
         let url = URL(string: "https://api.github.com/users/\(username)")!
         let (data, _) = try await URLSession.shared.data(from: url)
         return try JSONDecoder().decode(GitHubUser.self, from: data)
     }
     
-    private func fetchRepositories() async throws -> [GitHubRepository] {
+    private func fetchRepositories(username: String) async throws -> [GitHubRepository] {
         let url = URL(string: "https://api.github.com/users/\(username)/repos?sort=updated&per_page=30")!
         let (data, _) = try await URLSession.shared.data(from: url)
         return try JSONDecoder().decode([GitHubRepository].self, from: data)

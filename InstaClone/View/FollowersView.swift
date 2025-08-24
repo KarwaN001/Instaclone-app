@@ -133,6 +133,8 @@ struct FollowerRowView: View {
             
             // View button
             Button(action: {
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
                 showingProfile = true
             }) {
                 Text("View")
@@ -149,12 +151,12 @@ struct FollowerRowView: View {
         .padding(.vertical, 4)
         .background(Color(.systemBackground))
         .onTapGesture {
+            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+            impactFeedback.impactOccurred()
             showingProfile = true
         }
-        .sheet(isPresented: $showingProfile) {
-            if let url = URL(string: "https://github.com/\(user.login)") {
-                RepositoryWebView(url: url, repositoryName: user.login)
-            }
+        .fullScreenCover(isPresented: $showingProfile) {
+            UserProfileView(username: user.login)
         }
     }
 }
