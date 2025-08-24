@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject private var viewModel = GitHubViewModel()
     @State private var selectedTab = 0
+    @State private var showingWebView = false
+    @State private var selectedRepository: GitHubRepository?
     
     var body: some View {
         NavigationView {
@@ -85,6 +87,12 @@ struct ProfileView: View {
         .onAppear {
             if viewModel.user == nil {
                 viewModel.fetchUserData()
+            }
+        }
+        .sheet(isPresented: $showingWebView) {
+            if let repository = selectedRepository,
+               let url = URL(string: repository.htmlUrl) {
+                RepositoryWebView(url: url, repositoryName: repository.name)
             }
         }
     }
@@ -289,13 +297,12 @@ struct ProfileView: View {
                             .multilineTextAlignment(.center)
                     }
                     .onTapGesture {
-                        // Add haptic feedback and open repository
+                        // Add haptic feedback and show repository in WebView
                         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                         impactFeedback.impactOccurred()
                         
-                        if let url = URL(string: repo.htmlUrl) {
-                            UIApplication.shared.open(url)
-                        }
+                        selectedRepository = repo
+                        showingWebView = true
                     }
                 }
             }
@@ -460,9 +467,8 @@ struct ProfileView: View {
                         // Animation handled by the system
                     }
                     
-                    if let url = URL(string: repo.htmlUrl) {
-                        UIApplication.shared.open(url)
-                    }
+                    selectedRepository = repo
+                    showingWebView = true
                 }
             }
         }
