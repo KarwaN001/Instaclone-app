@@ -12,6 +12,8 @@ struct ProfileView: View {
     @State private var selectedTab = 0
     @State private var showingWebView = false
     @State private var selectedRepository: GitHubRepository?
+    @State private var showingFollowers = false
+    @State private var showingFollowing = false
     
     var body: some View {
         NavigationView {
@@ -95,6 +97,16 @@ struct ProfileView: View {
                 RepositoryWebView(url: url, repositoryName: repository.name)
             }
         }
+        .sheet(isPresented: $showingFollowers) {
+            if let username = viewModel.user?.login {
+                FollowersView(followType: .followers, username: username)
+            }
+        }
+        .sheet(isPresented: $showingFollowing) {
+            if let username = viewModel.user?.login {
+                FollowersView(followType: .following, username: username)
+            }
+        }
     }
     
     // MARK: - Profile Header
@@ -144,26 +156,38 @@ struct ProfileView: View {
                 .frame(maxWidth: .infinity)
                 
                 // Followers
-                VStack(spacing: 4) {
-                    Text("\(formatCount(viewModel.user?.followers ?? 0))")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.primary)
-                    Text("Followers")
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundColor(.secondary)
+                Button(action: {
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+                    showingFollowers = true
+                }) {
+                    VStack(spacing: 4) {
+                        Text("\(formatCount(viewModel.user?.followers ?? 0))")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.primary)
+                        Text("Followers")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundColor(.secondary)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity)
                 
                 // Following
-                VStack(spacing: 4) {
-                    Text("\(formatCount(viewModel.user?.following ?? 0))")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.primary)
-                    Text("Following")
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundColor(.secondary)
+                Button(action: {
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+                    showingFollowing = true
+                }) {
+                    VStack(spacing: 4) {
+                        Text("\(formatCount(viewModel.user?.following ?? 0))")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.primary)
+                        Text("Following")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundColor(.secondary)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity)
             }
             .padding(.horizontal, 10)
             .padding(.top, 16)

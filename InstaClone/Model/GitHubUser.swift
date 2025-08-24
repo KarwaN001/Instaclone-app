@@ -37,6 +37,21 @@ struct GitHubUser: Codable {
     }
 }
 
+// Simplified model for followers/following lists
+struct GitHubFollowerUser: Codable {
+    let login: String
+    let id: Int
+    let avatarUrl: String
+    let htmlUrl: String
+    let type: String
+    
+    enum CodingKeys: String, CodingKey {
+        case login, id, type
+        case avatarUrl = "avatar_url"
+        case htmlUrl = "html_url"
+    }
+}
+
 struct GitHubRepository: Codable {
     let id: Int
     let name: String
