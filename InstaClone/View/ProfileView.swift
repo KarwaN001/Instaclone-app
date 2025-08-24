@@ -249,7 +249,7 @@ struct ProfileView: View {
                         Circle()
                             .fill(
                                 LinearGradient(
-                                    colors: gradientColorsForLanguage(repo.language ?? ""),
+                                    colors: LanguageHelper.gradientColorsForLanguage(repo.language ?? ""),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -263,7 +263,7 @@ struct ProfileView: View {
                             .overlay(
                                 // Dynamic icon based on language or repository type
                                 VStack(spacing: 2) {
-                                    Image(systemName: iconForLanguage(repo.language ?? ""))
+                                    Image(systemName: LanguageHelper.iconForLanguage(repo.language ?? ""))
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
                                     
@@ -304,52 +304,7 @@ struct ProfileView: View {
         .padding(.top, 16)
     }
     
-    // Helper function for language-based gradients
-    private func gradientColorsForLanguage(_ language: String) -> [Color] {
-        switch language.lowercased() {
-        case "swift": return [.orange, .red]
-        case "javascript": return [.yellow, .orange]
-        case "python": return [.blue, .cyan]
-        case "java": return [.red, .orange]
-        case "typescript": return [.blue, .purple]
-        case "html": return [.orange, .pink]
-        case "css": return [.blue, .green]
-        case "dart": return [.blue, .teal]
-        case "kotlin": return [.purple, .pink]
-        case "go": return [.cyan, .blue]
-        case "rust": return [.orange, .brown]
-        case "c++", "cpp": return [.blue, .purple]
-        case "c": return [.gray, .blue]
-        case "php": return [.purple, .blue]
-        case "Blade": return [.red, .orange]
-        case "ruby": return [.red, .pink]
-        default: return [.gray, .secondary]
-        }
-    }
-    
-    // Helper function for language-based icons
-    private func iconForLanguage(_ language: String) -> String {
-        switch language.lowercased() {
-        case "swift": return "swift"
-        case "javascript": return "curlybraces"
-        case "python": return "terminal"
-        case "java": return "cup.and.saucer"
-        case "typescript": return "t.square"
-        case "html": return "globe"
-        case "css": return "paintbrush"
-        case "dart": return "target"
-        case "kotlin": return "k.square"
-        case "go": return "goforward"
-        case "rust": return "gear"
-        case "c++", "cpp": return "plus.forwardslash.minus"
-        case "c": return "c.square"
-        case "php": return "p.square"
-        case "Blade": return "crown"
-        case "ruby": return "diamond"
-        default: return "code"
-        }
-    }
-    
+  
     // MARK: - Tab Selection
     private var tabSelection: some View {
         HStack {
@@ -390,16 +345,16 @@ struct ProfileView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(
                                     LinearGradient(
-                                        colors: gradientColorsForLanguage(repo.language ?? "").map { $0.opacity(0.2) },
+                                        colors: LanguageHelper.gradientColorsForLanguage(repo.language ?? "").map { $0.opacity(0.2) },
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
                                     )
                                 )
                                 .frame(width: 36, height: 36)
                                 .overlay(
-                                    Image(systemName: iconForLanguage(repo.language ?? ""))
+                                    Image(systemName: LanguageHelper.iconForLanguage(repo.language ?? ""))
                                         .font(.system(size: 16, weight: .medium))
-                                        .foregroundColor(gradientColorsForLanguage(repo.language ?? "").first ?? .gray)
+                                        .foregroundColor(LanguageHelper.gradientColorsForLanguage(repo.language ?? "").first ?? .gray)
                                 )
                             
                             VStack(alignment: .leading, spacing: 1) {
@@ -442,9 +397,9 @@ struct ProfileView: View {
                         HStack {
                             // Language indicator
                             if let language = repo.language {
-                                                            HStack(spacing: 5) {
+                                HStack(spacing: 5) {
                                 Circle()
-                                    .fill(gradientColorsForLanguage(language).first ?? .gray)
+                                    .fill(LanguageHelper.gradientColorsForLanguage(language).first ?? .gray)
                                     .frame(width: 8, height: 8)
                                     Text(language)
                                         .font(.system(size: 10, weight: .medium))
