@@ -131,34 +131,43 @@ struct ProfileView: View {
             Spacer()
             
             // Real GitHub Stats
-            HStack(spacing: 30) {
-                VStack {
+            HStack(spacing: 0) {
+                // Repositories
+                VStack(spacing: 4) {
                     Text("\(viewModel.repositories.count)")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                    Text("Repos")
-                        .font(.caption)
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.primary)
+                    Text("Repo")
+                        .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.secondary)
                 }
+                .frame(maxWidth: .infinity)
                 
-                VStack {
-                    Text("\(viewModel.user?.followers ?? 0)")
-                        .font(.headline)
-                        .fontWeight(.semibold)
+                // Followers
+                VStack(spacing: 4) {
+                    Text("\(formatCount(viewModel.user?.followers ?? 0))")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.primary)
                     Text("Followers")
-                        .font(.caption)
+                        .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.secondary)
                 }
+                .frame(maxWidth: .infinity)
                 
-                VStack {
-                    Text("\(viewModel.user?.following ?? 0)")
-                        .font(.headline)
-                        .fontWeight(.semibold)
+                // Following
+                VStack(spacing: 4) {
+                    Text("\(formatCount(viewModel.user?.following ?? 0))")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.primary)
                     Text("Following")
-                        .font(.caption)
+                        .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.secondary)
                 }
+                .frame(maxWidth: .infinity)
             }
+            .padding(.horizontal, 10)
+            .padding(.top, 16)
+
         }
         .padding(.horizontal)
         .padding(.top, 10)
