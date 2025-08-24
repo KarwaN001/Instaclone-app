@@ -20,34 +20,34 @@ struct BottomNavigation: View {
                 Image(systemName: "house")
             }
             
-            // Search Tab
-            VStack {
-                Text("Search Screen")
-                    .font(.title)
-                    .foregroundColor(.primary)
-            }
-            .tabItem {
-                Image(systemName: "magnifyingglass")
-            }
+//            // Search Tab
+//            VStack {
+//                Text("Search Screen")
+//                    .font(.title)
+//                    .foregroundColor(.primary)
+//            }
+//            .tabItem {
+//                Image(systemName: "magnifyingglass")
+//            }
+//
+//            // Add Post Tab
+//            VStack {
+//                Text("Add Post Screen")
+//                    .font(.title)
+//                    .foregroundColor(.primary)
+//            }
+//            .tabItem {
+//                Image(systemName: "plus.square")
+//            }
             
-            // Add Post Tab
-            VStack {
-                Text("Add Post Screen")
-                    .font(.title)
-                    .foregroundColor(.primary)
-            }
-            .tabItem {
-                Image(systemName: "plus.square")
-            }
-            
-            // Notifications Tab
+            // star Tab
             VStack {
                 Text("Notifications Screen")
                     .font(.title)
                     .foregroundColor(.primary)
             }
             .tabItem {
-                Image(systemName: "heart")
+                Image(systemName: "star")
             }
             
             // Profile Tab
