@@ -51,11 +51,7 @@ struct BottomNavigation: View {
             }
             
             // Profile Tab
-            VStack {
-                Text("Profile Screen")
-                    .font(.title)
-                    .foregroundColor(.primary)
-            }
+            ProfileView()
             .tabItem {
                 Image(systemName: "person.circle")
             }
