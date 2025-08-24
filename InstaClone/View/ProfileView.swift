@@ -8,56 +8,83 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @StateObject private var viewModel = GitHubViewModel()
     @State private var selectedTab = 0
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(spacing: 5) {
-                    // Profile Header
-                    profileHeader
+            if viewModel.isLoading {
+                ProgressView("Loading GitHub Profile...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else if let errorMessage = viewModel.errorMessage {
+                VStack {
+                    Image(systemName: "exclamationmark.triangle")
+                        .font(.largeTitle)
+                        .foregroundColor(.orange)
+                    Text("Error loading profile")
+                        .font(.headline)
+                    Text(errorMessage)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Button("Retry") {
+                        viewModel.fetchUserData()
+                    }
+                    .padding(.top)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    VStack(spacing: 5) {
+                        // Profile Header
+                        profileHeader
+                        
+                        // Bio Section
+                        bioSection
+                        
+                        // Action Buttons
+                        actionButtons
+                        
+                        // Repository Highlights (instead of story highlights)
+                        repositoryHighlights
+                        
+                        // Tab Selection
+                        tabSelection
+                        
+                        // Repository Grid (instead of posts)
+                        repositoryGrid
+                    }
+                }
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        HStack {
+                            Text(viewModel.user?.login ?? "")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                            Image(systemName: "chevron.down")
+                                .font(.caption)
+                        }
+                    }
                     
-                    // Bio Section
-                    bioSection
-                    
-                    // Action Buttons
-                    actionButtons
-                    
-                    // Story Highlights
-                    storyHighlights
-                    
-                    // Tab Selection
-                    tabSelection
-                    
-                    // Posts Grid
-                    postsGrid
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack(spacing: 15) {
+                            Button(action: {}) {
+                                Image(systemName: "plus.app")
+                                    .font(.title2)
+                            }
+                            Button(action: {}) {
+                                Image(systemName: "line.3.horizontal")
+                                    .font(.title2)
+                            }
+                        }
+                        .foregroundColor(.black)
+                    }
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    HStack {
-                        Text("karwan.syborg")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        Image(systemName: "chevron.down")
-                            .font(.caption)
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: 15) {
-                        Button(action: {}) {
-                            Image(systemName: "plus.app")
-                                .font(.title2)
-                        }
-                        Button(action: {}) {
-                            Image(systemName: "line.3.horizontal")
-                                .font(.title2)
-                        }
-                    }
-                    .foregroundColor(.black)
-                }
+        }
+        .onAppear {
+            if viewModel.user == nil {
+                viewModel.fetchUserData()
             }
         }
     }
@@ -65,42 +92,49 @@ struct ProfileView: View {
     // MARK: - Profile Header
     private var profileHeader: some View {
         HStack {
-            // Profile Picture
-            Circle()
-                .fill(
-                    LinearGradient(
-                        colors: [.pink, .purple, .orange],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
+            // Profile Picture with real GitHub avatar
+            AsyncImage(url: URL(string: viewModel.user?.avatarUrl ?? "")) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                Circle()
+                    .fill(Color(.systemGray5))
+                    .overlay(
+                        Image(systemName: "person.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.secondary)
                     )
-                )
-                .frame(width: 86, height: 86)
-                .overlay(
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 80, height: 80)
-                        .overlay(
-                            Image(systemName: "person.fill")
-                                .font(.system(size: 40))
-                                .foregroundColor(.gray)
-                        )
-                )
+            }
+            .frame(width: 80, height: 80)
+            .clipShape(Circle())
+            .overlay(
+                Circle()
+                    .stroke(
+                        LinearGradient(
+                            colors: [.pink, .purple, .orange],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 3
+                    )
+            )
             
             Spacer()
             
-            // Stats
+            // Real GitHub Stats
             HStack(spacing: 30) {
                 VStack {
-                    Text("127")
+                    Text("\(viewModel.repositories.count)")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    Text("Posts")
+                    Text("Repos")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
                 
                 VStack {
-                    Text("2,456")
+                    Text("\(viewModel.user?.followers ?? 0)")
                         .font(.headline)
                         .fontWeight(.semibold)
                     Text("Followers")
@@ -109,7 +143,7 @@ struct ProfileView: View {
                 }
                 
                 VStack {
-                    Text("1,234")
+                    Text("\(viewModel.user?.following ?? 0)")
                         .font(.headline)
                         .fontWeight(.semibold)
                     Text("Following")
@@ -122,28 +156,42 @@ struct ProfileView: View {
         .padding(.top, 10)
     }
     
-    // MARK: - Bio Section
+    // MARK: - Bio Section with real GitHub data
     private var bioSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Karwan Syborg")
-                        .font(.footnote)
-                        .fontWeight(.semibold)
+                    if let name = viewModel.user?.name {
+                        Text(name)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                    }
                     
-                    Text("iOS Developer 📱")
-                        .font(.footnote)
+                    if let bio = viewModel.user?.bio {
+                        Text(bio)
+                            .font(.footnote)
+                    }
                     
-                    Text("Building amazing apps with SwiftUI")
-                        .font(.footnote)
+                    if let company = viewModel.user?.company {
+                        Text("🏢 \(company)")
+                            .font(.footnote)
+                    }
                     
-                    Text("📍 Kurdistan, Iraq")
+                    if let location = viewModel.user?.location {
+                        Text("📍 \(location)")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    if let blog = viewModel.user?.blog, !blog.isEmpty {
+                        Text(blog)
+                            .font(.footnote)
+                            .foregroundColor(.blue)
+                    }
+                    
+                    Text(viewModel.formattedJoinDate())
                         .font(.footnote)
                         .foregroundColor(.secondary)
-                    
-                    Text("linktr.ee/karwansyborg")
-                        .font(.footnote)
-                        .foregroundColor(.blue)
                 }
                 Spacer()
             }
@@ -156,7 +204,7 @@ struct ProfileView: View {
     private var actionButtons: some View {
         HStack(spacing: 8) {
             Button(action: {}) {
-                Text("Edit profile")
+                Text("View on GitHub")
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
@@ -178,7 +226,7 @@ struct ProfileView: View {
             .foregroundColor(.black)
             
             Button(action: {}) {
-                Image(systemName: "person.badge.plus")
+                Image(systemName: "star")
                     .font(.footnote)
                     .frame(width: 32, height: 32)
                     .background(Color(.systemGray6))
@@ -190,37 +238,29 @@ struct ProfileView: View {
         .padding(.top, 12)
     }
     
-    // MARK: - Story Highlights
-    private var storyHighlights: some View {
+    // MARK: - Repository Highlights (instead of story highlights)
+    private var repositoryHighlights: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
-                // New highlight
-                VStack {
-                    Circle()
-                        .stroke(Color(.systemGray4), lineWidth: 1)
-                        .frame(width: 64, height: 64)
-                        .overlay(
-                            Image(systemName: "plus")
-                                .font(.title2)
-                                .foregroundColor(.secondary)
-                        )
-                    Text("New")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                
-                // Sample highlights
-                ForEach(["Travel", "Food", "Work", "Nature"], id: \.self) { highlight in
+                // Show top repositories as highlights
+                ForEach(Array(viewModel.repositories.prefix(5)), id: \.id) { repo in
                     VStack {
                         Circle()
                             .fill(Color(.systemGray5))
                             .frame(width: 64, height: 64)
                             .overlay(
-                                Image(systemName: "photo")
-                                    .font(.title2)
-                                    .foregroundColor(.secondary)
+                                VStack {
+                                    Image(systemName: "folder")
+                                        .font(.title3)
+                                        .foregroundColor(.blue)
+                                    if let language = repo.language {
+                                        Text(String(language.prefix(3)))
+                                            .font(.system(size: 8))
+                                            .foregroundColor(.secondary)
+                                    }
+                                }
                             )
-                        Text(highlight)
+                        Text(String(repo.name.prefix(8)))
                             .font(.caption)
                             .foregroundColor(.primary)
                     }
@@ -235,14 +275,14 @@ struct ProfileView: View {
     private var tabSelection: some View {
         HStack {
             Button(action: { selectedTab = 0 }) {
-                Image(systemName: "grid")
+                Image(systemName: "folder")
                     .font(.title3)
                     .foregroundColor(selectedTab == 0 ? .black : .gray)
             }
             .frame(maxWidth: .infinity)
             
             Button(action: { selectedTab = 1 }) {
-                Image(systemName: "person.crop.square")
+                Image(systemName: "star")
                     .font(.title3)
                     .foregroundColor(selectedTab == 1 ? .black : .gray)
             }
@@ -259,24 +299,76 @@ struct ProfileView: View {
         )
     }
     
-    // MARK: - Posts Grid
-    private var postsGrid: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 1), count: 3), spacing: 1) {
-            ForEach(0..<21, id: \.self) { index in
-                Rectangle()
-                    .fill(Color(.systemGray5))
-                    .aspectRatio(1, contentMode: .fit)
-                    .overlay(
-                        Image(systemName: "photo")
-                            .font(.title)
-                            .foregroundColor(.secondary)
-                    )
-                    .onTapGesture {
-                        // Handle post tap
+    // MARK: - Repository Grid (instead of posts grid)
+    private var repositoryGrid: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 1), count: 2), spacing: 8) {
+            ForEach(viewModel.repositories, id: \.id) { repo in
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack {
+                        Image(systemName: "folder")
+                            .foregroundColor(.blue)
+                        Text(repo.name)
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .lineLimit(1)
+                        Spacer()
                     }
+                    
+                    if let description = repo.description {
+                        Text(description)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(2)
+                    }
+                    
+                    HStack {
+                        if let language = repo.language {
+                            HStack(spacing: 2) {
+                                Circle()
+                                    .fill(colorForLanguage(language))
+                                    .frame(width: 8, height: 8)
+                                Text(language)
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        Spacer()
+                        HStack(spacing: 8) {
+                            HStack(spacing: 2) {
+                                Image(systemName: "star")
+                                    .font(.caption2)
+                                Text("\(repo.stargazersCount)")
+                                    .font(.caption2)
+                            }
+                            .foregroundColor(.secondary)
+                            
+                            HStack(spacing: 2) {
+                                Image(systemName: "tuningfork")
+                                    .font(.caption2)
+                                Text("\(repo.forksCount)")
+                                    .font(.caption2)
+                            }
+                            .foregroundColor(.secondary)
+                        }
+                    }
+                }
+                .padding(8)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
             }
         }
+        .padding(.horizontal)
         .padding(.top, 1)
+    }
+    
+    private func colorForLanguage(_ language: String) -> Color {
+        switch language.lowercased() {
+        case "swift": return .orange
+        case "javascript": return .yellow
+        case "python": return .blue
+        case "java": return .red
+        default: return .gray
+        }
     }
 }
 
