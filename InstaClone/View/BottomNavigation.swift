@@ -11,11 +11,7 @@ struct BottomNavigation: View {
     var body: some View {
         TabView {
             // Home Tab
-            VStack {
-                Text("Home Screen")
-                    .font(.title)
-                    .foregroundColor(.primary)
-            }
+            HomeView()
             .tabItem {
                 Image(systemName: "house")
             }
