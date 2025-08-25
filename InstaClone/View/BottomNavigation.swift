@@ -8,6 +8,19 @@
 import SwiftUI
 
 struct BottomNavigation: View {
+    
+    init() {
+        // Configure tab bar appearance to ensure solid background
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.systemBackground
+        
+        UITabBar.appearance().standardAppearance = appearance
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+    }
+    
     var body: some View {
         TabView {
             // Home Tab
@@ -49,6 +62,7 @@ struct BottomNavigation: View {
             }
         }
         .accentColor(.black)
+        .background(Color(UIColor.systemBackground))
     }
 }
 
