@@ -22,6 +22,7 @@
 		9CA0B9092E5B7F23004DB0AD /* FollowersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B9082E5B7F23004DB0AD /* FollowersViewModel.swift */; };
 		9CA0B90B2E5B8156004DB0AD /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B90A2E5B8156004DB0AD /* UserProfileView.swift */; };
 		9CA0B90D2E5BDA10004DB0AD /* GitHubActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B90C2E5BDA10004DB0AD /* GitHubActivityViewModel.swift */; };
+		9CD9A22E2E5CABE4008AF959 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9A22D2E5CABE4008AF959 /* StarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		9CA0B9082E5B7F23004DB0AD /* FollowersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersViewModel.swift; sourceTree = "<group>"; };
 		9CA0B90A2E5B8156004DB0AD /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		9CA0B90C2E5BDA10004DB0AD /* GitHubActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubActivityViewModel.swift; sourceTree = "<group>"; };
+		9CD9A22D2E5CABE4008AF959 /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				9CA0B8C12E5B4DF1004DB0AD /* ContentView.swift */,
 				9CA0B8FB2E5BC777004DB0AD /* FollowersView.swift */,
 				9CA0B8F52E5B5B25004DB0AD /* BottomNavigation.swift */,
+				9CD9A22D2E5CABE4008AF959 /* StarView.swift */,
 				9CA0B8FD2E5BD9AF004DB0AD /* HomeView.swift */,
 				9CA0B8F72E5B5E3D004DB0AD /* ProfileView.swift */,
 				9CA0B9042E5B7A12004DB0AD /* WebView.swift */,
@@ -208,6 +211,7 @@
 				9CA0B8FE2E5BD9AF004DB0AD /* HomeView.swift in Sources */,
 				9CA0B9092E5B7F23004DB0AD /* FollowersViewModel.swift in Sources */,
 				9CA0B90B2E5B8156004DB0AD /* UserProfileView.swift in Sources */,
+				9CD9A22E2E5CABE4008AF959 /* StarView.swift in Sources */,
 				9CA0B90D2E5BDA10004DB0AD /* GitHubActivityViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
