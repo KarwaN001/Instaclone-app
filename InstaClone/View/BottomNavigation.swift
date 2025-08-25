@@ -36,12 +36,8 @@ struct BottomNavigation: View {
 //                Image(systemName: "plus.square")
 //            }
             
-            // star Tab
-            VStack {
-                Text("Notifications Screen")
-                    .font(.title)
-                    .foregroundColor(.primary)
-            }
+            // Star Tab
+            StarView()
             .tabItem {
                 Image(systemName: "star")
             }
