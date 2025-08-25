@@ -23,6 +23,7 @@
 		9CA0B90B2E5B8156004DB0AD /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B90A2E5B8156004DB0AD /* UserProfileView.swift */; };
 		9CA0B90D2E5BDA10004DB0AD /* GitHubActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0B90C2E5BDA10004DB0AD /* GitHubActivityViewModel.swift */; };
 		9CD9A22E2E5CABE4008AF959 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9A22D2E5CABE4008AF959 /* StarView.swift */; };
+		9CD9A2302E5CAE14008AF959 /* StarredRepositoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9A22F2E5CAE14008AF959 /* StarredRepositoriesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		9CA0B90A2E5B8156004DB0AD /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		9CA0B90C2E5BDA10004DB0AD /* GitHubActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubActivityViewModel.swift; sourceTree = "<group>"; };
 		9CD9A22D2E5CABE4008AF959 /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		9CD9A22F2E5CAE14008AF959 /* StarredRepositoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRepositoriesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				9CA0B9022E5B6C45004DB0AD /* GitHubViewModel.swift */,
+				9CD9A22F2E5CAE14008AF959 /* StarredRepositoriesViewModel.swift */,
 				9CA0B9082E5B7F23004DB0AD /* FollowersViewModel.swift */,
 				9CA0B90C2E5BDA10004DB0AD /* GitHubActivityViewModel.swift */,
 			);
@@ -210,6 +213,7 @@
 				9CA0B9052E5B7A12004DB0AD /* WebView.swift in Sources */,
 				9CA0B8FE2E5BD9AF004DB0AD /* HomeView.swift in Sources */,
 				9CA0B9092E5B7F23004DB0AD /* FollowersViewModel.swift in Sources */,
+				9CD9A2302E5CAE14008AF959 /* StarredRepositoriesViewModel.swift in Sources */,
 				9CA0B90B2E5B8156004DB0AD /* UserProfileView.swift in Sources */,
 				9CD9A22E2E5CABE4008AF959 /* StarView.swift in Sources */,
 				9CA0B90D2E5BDA10004DB0AD /* GitHubActivityViewModel.swift in Sources */,
