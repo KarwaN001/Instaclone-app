@@ -1,6 +1,6 @@
 # GitGram (InstaClone) 🚀
 <p align="center">
-  <img src="gitGram.png" alt="GitGram Logo" width="120"/>
+  <img src="InstaClone/ScreenShots/gitGram.png" alt="GitGram Logo" width="120"/>
 </p>
 
 ## 📸 What is GitGram?  
@@ -27,7 +27,7 @@ All packed inside a native **SwiftUI app** with the look & feel of Instagram.
 
 | **Following Feed** | **Discover Feed** | **Starred Repositories** | **Profile Page** | **Followers List** |
 |:------------------:|:-----------------:|:------------------------:|:----------------:|:------------------:|
-| ![Following Feed](screen_3.png) | ![Discover Feed](screen_4.png) | ![Starred Repos](screen_5.png) | ![Profile](screen_1.png) | ![Followers](Screen_2.png) |
+| ![Following Feed](InstaClone/ScreenShots/screen_3.png) | ![Discover Feed](InstaClone/ScreenShots/screen_4.png) | ![Starred Repos](InstaClone/ScreenShots/screen_5.png) | ![Profile](InstaClone/ScreenShots/screen_1.png) | ![Followers](InstaClone/ScreenShots/Screen_2.png) |
 | **Following tab showing repository activities, commits, and forks from users you follow** | **Discover tab displaying recent commits and pushes from the GitHub community** | **Your starred repositories with statistics like stars, forks, and language info** | **Profile page showing repos, followers & following count** | **Followers list with user avatars and details** |
 
 ### 🎯 App Flow Overview
